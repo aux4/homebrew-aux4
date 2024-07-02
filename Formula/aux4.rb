@@ -18,7 +18,7 @@ class Aux4 < Formula
       url "https://github.com/aux4/aux4/releases/download/v5.0.1/aux4-linux-386"
       sha256 "60ccb24a16b4fc990be06fa59eac9be329e0a7340e45a59b138f01658d847da5"
     end
-  elsif OS.windows?
+  else
     if Hardware::CPU.intel?
       url "https://github.com/aux4/aux4/releases/download/v5.0.1/aux4-windows-amd64.exe"
       sha256 "58f4ebe0eeff8797020203eda5abfeab3a001d1a80bd0e08e3eab63ea2c18188"
@@ -31,10 +31,10 @@ class Aux4 < Formula
   license "Apache-2.0"
 
   def install
-    if OS.windows?
-      bin.install "aux4-windows-#{Hardware::CPU.arch}.exe" => "aux4.exe"
-    else
+    if OS.linux? || OS.mac?
       bin.install "aux4-#{OS.kernel_name.downcase}-#{Hardware::CPU.arch}" => "aux4"
+    else
+      bin.install "aux4-windows-#{Hardware::CPU.arch}.exe" => "aux4.exe"
     end
   end
 

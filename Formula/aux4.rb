@@ -6,7 +6,7 @@ class Aux4 < Formula
   license "Apache-2.0"
 
   def install
-    bin.install "aux4"
+    bin.install "aux4*" => "aux4"
   end
 
   test do

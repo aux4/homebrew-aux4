@@ -35,6 +35,7 @@ class Aux4 < Formula
 
   def install
     puts('INSTALL')
+    puts(prefix)
     puts(Dir.glob("#{prefix}/bin/aux4*").join(','))
     puts(File.basename(Dir.glob("#{prefix}/bin/aux4*").join(',')))
     executable_file = File.basename(Dir.glob("#{prefix}/bin/aux4*"))

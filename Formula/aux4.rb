@@ -34,38 +34,18 @@ class Aux4 < Formula
   license 'Apache-2.0'
 
   def install
-    if OS.mac?
-      if Hardware::CPU.intel?
-        file_name = 'aux4-darwin-amd64'
-      elsif Hardware::CPU.arm?
-        file_name = 'aux4-darwin-arm64'
-      end
-    elsif OS.linux?
-      if Hardware::CPU.intel?
-        file_name = 'aux4-linux-amd64'
-      elsif Hardware::CPU.is_32_bit?
-        file_name = 'aux4-linux-386'
-      end
-    elsif OS.windows?
-      if Hardware::CPU.intel?
-        file_name = 'aux4-windows-amd64.exe'
-      elsif Hardware::CPU.is_32_bit?
-        file_name = 'aux4-windows-386.exe'
-      end
-    end
-
     if OS.linux? || OS.mac?
-      bin.install file_name => 'aux4'
+      bin.install 'aux4-*' => 'aux4'
     else
-      bin.install file_name => 'aux4.exe'
+      bin.install 'aux4-*' => 'aux4.exe'
     end
   end
 
   test do
     if OS.windows?
-      system "#{bin}/aux4.exe"
+      system "#{bin}/aux4.exe aux4 version"
     else
-      system "#{bin}/aux4"
+      system "#{bin}/aux4 aux4 version"
     end
   end
 end

@@ -36,21 +36,21 @@ class Aux4 < Formula
   def install
     if OS.mac?
       if Hardware::CPU.intel?
-        file_name 'aux4-darwin-amd64'
+        file_name = 'aux4-darwin-amd64'
       elsif Hardware::CPU.arm?
-        file_name 'aux4-darwin-arm64'
+        file_name = 'aux4-darwin-arm64'
       end
     elsif OS.linux?
       if Hardware::CPU.intel?
-        file_name 'aux4-linux-amd64'
+        file_name = 'aux4-linux-amd64'
       elsif Hardware::CPU.is_32_bit?
-        file_name 'aux4-linux-386'
+        file_name = 'aux4-linux-386'
       end
     elsif OS.windows?
       if Hardware::CPU.intel?
-        file_name 'aux4-windows-amd64.exe'
+        file_name = 'aux4-windows-amd64.exe'
       elsif Hardware::CPU.is_32_bit?
-        file_name 'aux4-windows-386.exe'
+        file_name = 'aux4-windows-386.exe'
       end
     end
 

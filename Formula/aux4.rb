@@ -34,11 +34,8 @@ class Aux4 < Formula
   license 'Apache-2.0'
 
   def install
-    if OS.linux? || OS.mac?
-      bin.install 'aux4-*' => 'aux4'
-    else
-      bin.install 'aux4-*' => 'aux4.exe'
-    end
+    executable_file = File.basename(Dir.glob("#{prefix}/aux4-*"))
+    bin.install executable_file => 'aux4'
   end
 
   test do

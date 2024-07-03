@@ -1,9 +1,9 @@
-class Aux4 < Formula
-  desc 'elevate your imagination'
-  homepage 'https://aux4.io'
-  version '5.0.1'
+# frozen_string_literal: true
 
-  os_cpu_map = {
+version = '5.0.1'
+
+def os_cpu_map
+  {
     'mac_intel' => {
       file_name: 'aux4-darwin-amd64',
       url: "https://github.com/aux4/aux4/releases/download/v#{version}/aux4-darwin-amd64",
@@ -35,26 +35,31 @@ class Aux4 < Formula
       sha256: '0a354f5493170e2d7e71620a2ec04626c2c1350d6be6d9f21bcbeb2ce622ce9b'
     }
   }
+end
 
-  def self.os_cpu_key
-    if OS.mac?
-      Hardware::CPU.arm? ? 'mac_arm' : 'mac_intel'
-    elsif OS.linux?
-      Hardware::CPU.is_32_bit? ? 'linux_32bit' : 'linux_intel'
-    elsif OS.windows?
-      Hardware::CPU.is_32_bit? ? 'windows_32bit' : 'windows_intel'
-    else
-      raise 'Unsupported platform'
-    end
+def os_cpu_key
+  if OS.mac?
+    Hardware::CPU.arm? ? 'mac_arm' : 'mac_intel'
+  elsif OS.linux?
+    Hardware::CPU.is_32_bit? ? 'linux_32bit' : 'linux_intel'
+  elsif OS.windows?
+    Hardware::CPU.is_32_bit? ? 'windows_32bit' : 'windows_intel'
+  else
+    raise 'Unsupported platform'
   end
+end
 
-  current_config = os_cpu_map[Aux4.os_cpu_key]
+class Aux4 < Formula
+  desc 'elevate your imagination'
+  homepage 'https://aux4.io'
+
+  current_config = os_cpu_map[os_cpu_key]
   url current_config[:url]
   sha256 current_config[:sha256]
   license 'Apache-2.0'
 
   def install
-    local_file = Aux4.os_cpu_map[os_cpu_key][:file_name]
+    local_file = os_cpu_map[os_cpu_key][:file_name]
 
     if OS.windows?
       bin.install local_file => 'aux4.exe'

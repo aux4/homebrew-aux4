@@ -36,7 +36,19 @@ class Aux4 < Formula
     }
   }
 
-  current_config = os_cpu_map[os_cpu_key]
+  def self.os_cpu_key
+    if OS.mac?
+      Hardware::CPU.arm? ? 'mac_arm' : 'mac_intel'
+    elsif OS.linux?
+      Hardware::CPU.is_32_bit? ? 'linux_32bit' : 'linux_intel'
+    elsif OS.windows?
+      Hardware::CPU.is_32_bit? ? 'windows_32bit' : 'windows_intel'
+    else
+      raise 'Unsupported platform'
+    end
+  end
+
+  current_config = os_cpu_map[Aux4.os_cpu_key]
   url current_config[:url]
   sha256 current_config[:sha256]
   license 'Apache-2.0'
@@ -57,17 +69,5 @@ class Aux4 < Formula
     else
       system "#{bin}/aux4"
     end
-  end
-end
-
-def os_cpu_key
-  if OS.mac?
-    Hardware::CPU.arm? ? 'mac_arm' : 'mac_intel'
-  elsif OS.linux?
-    Hardware::CPU.is_32_bit? ? 'linux_32bit' : 'linux_intel'
-  elsif OS.windows?
-    Hardware::CPU.is_32_bit? ? 'windows_32bit' : 'windows_intel'
-  else
-    raise 'Unsupported platform'
   end
 end

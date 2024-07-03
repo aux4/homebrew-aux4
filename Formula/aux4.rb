@@ -34,7 +34,7 @@ class Aux4 < Formula
   license 'Apache-2.0'
 
   def install
-    executable_file = File.basename(Dir.glob("#{prefix}/aux4-*").first)
+    executable_file = File.basename(Dir.glob("#{prefix}/bin/aux4-*"))
     bin.install executable_file => 'aux4'
   end
 
